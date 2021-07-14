@@ -7,6 +7,10 @@ export const PARCELS_LAYER_URL =
 
 export const parcelLayerPopupConfig = {
   PARCEL_NAME: { label: 'Parcel Name:', display: (data: any) => data.PARCEL_NAME },
+  LEGAL_DESCRIPTION: {
+    label: 'Legal Description:',
+    display: (data: any) => data.LEGAL_DESCRIPTION,
+  },
   PIN: { label: 'Parcel PIN:', display: (data: any) => data.PIN },
   PID: { label: 'Parcel PID:', display: (data: any) => data.PID },
   PLAN_NUMBER: { label: 'Plan Number:', display: (data: any) => data.PLAN_NUMBER },
