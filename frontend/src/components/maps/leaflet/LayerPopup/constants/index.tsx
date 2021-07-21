@@ -11,6 +11,10 @@ export const parcelLayerPopupConfig = {
     label: 'Legal Description:',
     display: (data: any) => data.LEGAL_DESCRIPTION,
   },
+  SURVEY_DESIGNATION_1: {
+    label: 'Survey Designation:',
+    display: (data: any) => data.SURVEY_DESIGNATION_1,
+  },
   PIN: { label: 'Parcel PIN:', display: (data: any) => data.PIN },
   PID: { label: 'Parcel PID:', display: (data: any) => data.PID },
   PLAN_NUMBER: { label: 'Plan Number:', display: (data: any) => data.PLAN_NUMBER },
