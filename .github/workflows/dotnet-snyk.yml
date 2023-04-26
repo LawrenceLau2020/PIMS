@@ -4,6 +4,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       working-directory: ./backend
     steps:
       - uses: actions/checkout@v3
@@ -25,7 +26,5 @@ jobs:
 
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/dotnet@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           args: snyk test --package-manager=nuget --debug
