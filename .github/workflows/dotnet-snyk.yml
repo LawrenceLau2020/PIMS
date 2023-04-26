@@ -22,7 +22,5 @@ jobs:
         run: dotnet build --configuration Release --no-restore
         working-directory: ${{env.working-directory}}
 
-      - uses: actions/checkout@master
-
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/dotnet@master
