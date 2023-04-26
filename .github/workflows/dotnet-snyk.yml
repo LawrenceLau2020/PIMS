@@ -23,14 +23,6 @@ jobs:
   security:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 3.1.x
-      - name: Restore
-        run: dotnet restore
-      - name: Build
-        run: dotnet build --no-restore
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/dotnet@master
