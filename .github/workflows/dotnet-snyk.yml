@@ -25,11 +25,14 @@ jobs:
           echo $GITHUB_WORKSPACE
         working-directory: ${{env.working-directory}}
 
-      - run: |
-          cd ./backend
-          echo ${{ github.workspace }}
-          echo $GITHUB_WORKSPACE
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/dotnet@master
-        with:
-          args: '--package-manager=nuget --debug'
+      - name: Install Snyk
+        run: curl -sL https://deb.snyk.io/snyk-apt/apt/sources.list.d/snyk.list | sudo tee /etc/apt/sources.list.d/snyk.list && curl -sL https://deb.snyk.io/snyk-apt/signing-key.asc | sudo apt-key add - && sudo apt-get update && sudo apt-get install snyk
+
+      - name: Authenticate Snyk
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: snyk auth $SNYK_TOKEN
+
+      - name: Run Snyk Test
+        working-directory: ${{env.working-directory}}
+        run: snyk test --severity-threshold=medium
