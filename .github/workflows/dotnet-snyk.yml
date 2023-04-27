@@ -25,8 +25,11 @@ jobs:
           echo $GITHUB_WORKSPACE
         working-directory: ${{env.working-directory}}
 
+      - run: |
+          cd ./backend
+          echo ${{ github.workspace }}
+          echo $GITHUB_WORKSPACE
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/dotnet@master
         with:
           args: '--package-manager=nuget --debug'
-      - run: cd ./backend
