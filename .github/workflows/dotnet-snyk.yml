@@ -7,25 +7,27 @@ jobs:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       working-directory: ./backend
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+
       - name: Setup .NET 6.0
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 6.0.x
-      - name: Install Snyk
-        run: curl -sL https://deb.snyk.io/snyk-apt/apt/sources.list.d/snyk.list | sudo tee /etc/apt/sources.list.d/snyk.list && curl -sL https://deb.snyk.io/snyk-apt/signing-key.asc | sudo apt-key add - && sudo apt-get update && sudo apt-get install snyk
-      - name: Authenticate Snyk
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: snyk auth $SNYK_TOKEN
+
       - name: Install dependencies
         run: dotnet restore
         working-directory: ${{env.working-directory}}
+
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: |
+          dotnet build --configuration Release --no-restore
+          echo ${{ github.workspace }}
+          echo $GITHUB_WORKSPACE
         working-directory: ${{env.working-directory}}
+
       - name: Snyk test
-        working-directory: ${{env.working-directory}}
-        run: snyk test --severity-threshold=medium
+        uses: snyk/actions/dotnet@master
+        with:
+          args: '--severity-threshold=medium'
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
