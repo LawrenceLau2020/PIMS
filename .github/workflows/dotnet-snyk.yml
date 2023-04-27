@@ -25,14 +25,11 @@ jobs:
           echo $GITHUB_WORKSPACE
         working-directory: ${{env.working-directory}}
 
-      - name: Install Snyk
-        run: curl -sL https://deb.snyk.io/snyk-apt/apt/sources.list.d/snyk.list | sudo tee /etc/apt/sources.list.d/snyk.list && curl -sL https://deb.snyk.io/snyk-apt/signing-key.asc | sudo apt-key add - && sudo apt-get update && sudo apt-get install snyk
-
-      - name: Authenticate Snyk
+      - name: Test for vulnerabilities with Snyk
+        uses: actions/checkout@v2
+      - name: Snyk test
+        uses: snyk/actions/dotnet@master
+        with:
+          args: 'test --severity-threshold=medium'
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: snyk auth $SNYK_TOKEN
-
-      - name: Run Snyk Test
-        working-directory: ${{env.working-directory}}
-        run: snyk test --severity-threshold=medium
