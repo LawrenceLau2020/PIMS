@@ -25,11 +25,9 @@ jobs:
           echo $GITHUB_WORKSPACE
         working-directory: ${{env.working-directory}}
 
-      - name: Test for vulnerabilities with Snyk
-        uses: actions/checkout@v2
       - name: Snyk test
         uses: snyk/actions/dotnet@master
         with:
-          args: 'test --severity-threshold=medium'
+          args: '--severity-threshold=medium'
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
