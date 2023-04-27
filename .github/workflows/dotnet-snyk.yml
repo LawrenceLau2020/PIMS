@@ -28,4 +28,4 @@ jobs:
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/dotnet@master
         with:
-          args: '--file=Pims.Api.csproj --package-manager=nuget --debug'
+          args: '--file=backend/api/Pims.Api.csproj --package-manager=nuget --debug'
