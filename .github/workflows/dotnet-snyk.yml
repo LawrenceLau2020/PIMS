@@ -19,7 +19,10 @@ jobs:
         working-directory: ${{env.working-directory}}
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: |
+          dotnet build --configuration Release --no-restore
+          echo ${{ github.workspace }}
+          echo $GITHUB_WORKSPACE
         working-directory: ${{env.working-directory}}
 
       - name: Run Snyk to check for vulnerabilities
