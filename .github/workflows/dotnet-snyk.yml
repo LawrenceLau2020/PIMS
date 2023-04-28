@@ -28,7 +28,7 @@ jobs:
       - name: Snyk test
         uses: snyk/actions/dotnet@master
         with:
-          args: '--severity-threshold=medium'
+          args: '--severity-threshold=medium --all-projects'
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
           working-directory: ${{env.working-directory}}
